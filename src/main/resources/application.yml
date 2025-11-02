@@ -9,11 +9,13 @@ spring:
       group-id: midas-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.jpmc.midascore.foundation
 
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
     properties:
       security.protocol: PLAINTEXT
@@ -25,5 +27,6 @@ spring:
       - name: orders
         num-partitions: 3
         replication-factor: 1
+
 general:
   kafka-topic: orders
