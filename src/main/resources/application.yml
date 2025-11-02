@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+spring:
+  kafka:
+    bootstrap-servers: ${SPRING_KAFKA_BOOTSTRAP_SERVERS:kafka:9092}
+
+    consumer:
+      group-id: midas-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+    properties:
+      security.protocol: PLAINTEXT
+
+    admin:
+      auto-create: true
+
+    topics:
+      - name: orders
+        num-partitions: 3
+        replication-factor: 1
+general:
+  kafka-topic: orders
